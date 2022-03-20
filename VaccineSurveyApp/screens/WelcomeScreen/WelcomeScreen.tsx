@@ -11,13 +11,10 @@ export default function WelcomeScreen({ navigation }: { navigation: any }) {
       />
       <Text style={styles.header}>Covid 19 Vaccine Survey</Text>
       <Text style={styles.description}>
-        Vaccine Pollster is requesting input from employees regarding their
-        COVID-19 vaccination status and how Vaccine Pollster may help to
-        facilitate vaccinations for employees. This anonymous and voluntary
-        survey will help senior management make decisions regarding reopening
-        the office; however, the results of this survey will not be the only
-        information used in the decision-making process. At this time, Vaccine
-        Pollster has no intention of mandating the COVID-19 vaccine.
+        This survey is conducted by CS 458 project-2 team and may take 2-3
+        minutes. The survey aims to investigate the impacts of vaccination
+        against COVID-19 virus. The collected data will be used to evaluate
+        COVID-19 influence rate among people.
       </Text>
       <TouchableOpacity
         onPress={() => {
@@ -54,7 +51,8 @@ const styles = StyleSheet.create({
     color: `${colors.white}`,
   },
   description: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 40,
     color: `${colors.disabledText}`,
     fontStyle: "italic",
   },
