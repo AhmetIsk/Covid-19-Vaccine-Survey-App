@@ -6,33 +6,41 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Image,
 } from "react-native";
 import DatePicker from "react-native-datepicker";
 import { Picker } from "@react-native-picker/picker";
 import { RadioButton } from "react-native-paper";
+import { cities } from "../../constants/iller";
 import React, { useState } from "react";
 import { colors } from "../../constants/constants";
 
 const SurveyScreen = ({ navigation }: { navigation: any }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [date, setDate] = useState("2016-05-15");
-  const [checked, setChecked] = useState("yes");
-  const [selectedLanguage, setSelectedLanguage] = useState();
+  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
+  const [effectChecked, setEffectChecked] = useState("");
+  const [city, setCity] = useState("");
+  const [checked, setChecked] = useState("");
+  const [vaccine, setVaccine] = useState("");
+  const [gender, setGender] = useState("");
 
   const handleSubmit = () => {
-    setUsername("");
-    setPassword("");
-    setEmail("");
-    setFirstName("");
-    setLastName("");
+    setName("");
+    setDate("");
+    setCity("");
+    setEffectChecked("");
+    setChecked("");
+    setVaccine("");
+    setGender("");
+    navigation.navigate("Thank You");
   };
   return (
     <ScrollView style={styles.scrollContainer}>
       <KeyboardAvoidingView style={styles.container}>
+        <Image
+          source={require("../../assets/surveyHeader.png")}
+          style={{ width: "100%", height: 236 }}
+        />
         <Text style={styles.description}>
           Vaccine Pollster is requesting input from employees regarding their
           COVID-19 vaccination status and how Vaccine Pollster may help to
@@ -43,66 +51,81 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
           Pollster has no intention of mandating the COVID-19 vaccine.
         </Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>Name and Surname: </Text>
+          <Text style={styles.inputLabel}>
+            Name and Surname: <Text style={{ color: colors.red }}>*</Text>
+          </Text>
           <TextInput
-            placeholder="Username"
-            value={username}
-            onChangeText={(text) => setUsername(text)}
+            placeholder="Name and Surname"
+            value={name}
+            onChangeText={(text) => setName(text)}
             style={styles.input}
           />
-          <Text style={styles.inputLabel}>Birth Date</Text>
+          <Text style={styles.inputLabel}>
+            Birth Date <Text style={{ color: colors.red }}>*</Text>
+          </Text>
           <DatePicker
             style={{ width: 200 }}
             date={date}
             mode="date"
             placeholder="select date"
-            format="YYYY-MM-DD"
-            minDate="1930-05-01"
-            maxDate="2004-06-01"
+            format="DD-MM-YYYY"
+            minDate="01-05-1930"
+            maxDate="01-06-2004"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
-              dateIcon: {
-                position: "absolute",
-                left: 0,
-                top: 4,
-                marginLeft: 0,
-              },
-              dateInput: {
-                marginLeft: 36,
-                backgroundColor: "white",
-                paddingHorizontal: 15,
-                paddingVertical: 10,
-                borderRadius: 12,
-                borderStyle: "solid",
-                borderWidth: 1,
-                borderColor: `${colors.borderColor}`,
-                marginTop: 10,
-              },
+              dateIcon: styles.dateIcon,
+              dateInput: styles.dateInput,
             }}
-            onDateChange={() => setDate(date)}
+            onDateChange={(date) => setDate(date)}
           />
-          <Text style={styles.inputLabel}>City</Text>
-          <TextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            style={styles.input}
-          />
-          <Text style={styles.inputLabel}>Gender</Text>
-          <TextInput
-            placeholder="First Name"
-            value={firstName}
-            onChangeText={(text) => setFirstName(text)}
-            style={styles.input}
-          />
-          <Text style={styles.inputLabel}>Which vaccine did you applied?</Text>
+          <Text style={styles.inputLabel}>
+            City <Text style={{ color: colors.red }}>*</Text>
+          </Text>
           <Picker
-            selectedValue={selectedLanguage}
+            selectedValue={city}
             onValueChange={(itemValue, itemIndex) =>
-              setSelectedLanguage(itemValue)
+              itemValue !== "0" && setCity(itemValue)
             }
           >
+            <Picker.Item label="Please select an option..." value="0" />
+            {cities.map((one) => {
+              return <Picker.Item label={one} value={one} key={one} />;
+            })}
+          </Picker>
+          <Text style={styles.inputLabel}>
+            Gender <Text style={{ color: colors.red }}>*</Text>
+          </Text>
+          <Picker
+            selectedValue={gender}
+            onValueChange={(itemValue, itemIndex) =>
+              itemValue !== "0" && setGender(itemValue)
+            }
+          >
+            <Picker.Item label="Please select an option..." value="0" />
+            <Picker.Item label="Woman" value="Woman" />
+            <Picker.Item label="Man" value="Man" />
+            <Picker.Item label="Transgender" value="Transgender" />
+            <Picker.Item
+              label="Non-binary/non-conforming"
+              value="Non-binary/non-conforming"
+            />
+            <Picker.Item
+              label="Prefer not to respond"
+              value="Prefer not to respond"
+            />
+          </Picker>
+          <Text style={styles.inputLabel}>
+            Which vaccine did you applied?{" "}
+            <Text style={{ color: colors.red }}>*</Text>
+          </Text>
+          <Picker
+            selectedValue={vaccine}
+            onValueChange={(itemValue, itemIndex) =>
+              itemValue !== "0" && setVaccine(itemValue)
+            }
+          >
+            <Picker.Item label="Please select an option..." value="0" />
             <Picker.Item label="Biontech" value="Biontech" />
             <Picker.Item label="Moderna" value="Moderna" />
             <Picker.Item label="Astrazeneca" value="Astrazeneca" />
@@ -110,64 +133,100 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
             <Picker.Item label="Sputnik V" value="Sputnik V" />
           </Picker>
           <Text style={styles.inputLabel}>
-            Did you have any side effect after vaccination?
+            Did you have any side effect after vaccination?{" "}
+            <Text style={{ color: colors.red }}>*</Text>
           </Text>
-          <View>
-            <RadioButton
-              value="first"
-              status={checked === "first" ? "checked" : "unchecked"}
-              onPress={() => setChecked("first")}
-            />
-            <RadioButton
-              value="second"
-              status={checked === "second" ? "checked" : "unchecked"}
-              onPress={() => setChecked("second")}
-            />
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={{ flex: 1 }}>
+              <RadioButton
+                value="Yes"
+                status={effectChecked === "Yes" ? "checked" : "unchecked"}
+                onPress={() => setEffectChecked("Yes")}
+                uncheckedColor={`${colors.gray}`}
+                color={`${colors.black}`}
+              />
+              <RadioButton
+                value="No"
+                status={effectChecked === "No" ? "checked" : "unchecked"}
+                onPress={() => setEffectChecked("No")}
+                uncheckedColor={`${colors.gray}`}
+                color={`${colors.black}`}
+              />
+            </View>
+            <View style={{ flex: 5 }}>
+              <Text style={{ marginVertical: 8 }}>Yes</Text>
+              <Text style={{ marginVertical: 8 }}>No</Text>
+            </View>
           </View>
           <Text style={styles.inputLabel}>
             Did you have any PCR positive case or Covid-19 symptoms after 3rd
-            vaccination?
+            vaccination? <Text style={{ color: colors.red }}>*</Text>
           </Text>
-          <View>
-            <RadioButton
-              value="first"
-              status={checked === "first" ? "checked" : "unchecked"}
-              onPress={() => setChecked("first")}
-            />
-            <RadioButton
-              value="second"
-              status={checked === "second" ? "checked" : "unchecked"}
-              onPress={() => setChecked("second")}
-            />
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={{ flex: 1 }}>
+              <RadioButton
+                value="first"
+                status={checked === "first" ? "checked" : "unchecked"}
+                onPress={() => setChecked("first")}
+                uncheckedColor={`${colors.gray}`}
+                color={`${colors.black}`}
+              />
+              <RadioButton
+                value="No"
+                status={checked === "No" ? "checked" : "unchecked"}
+                onPress={() => setChecked("No")}
+                uncheckedColor={`${colors.gray}`}
+                color={`${colors.black}`}
+              />
+            </View>
+            <View style={{ flex: 5 }}>
+              <Text style={{ marginVertical: 8 }}>Yes</Text>
+              <Text style={{ marginVertical: 8 }}>No</Text>
+            </View>
           </View>
         </View>
-        <View style={styles.registrationContainer}>
+        <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={handleSubmit}
-            // color={
-            //   username && password && email && firstName && lastName ? colors.orange : colors.disabled
-            // }
-            disabled={!(username && password && email && firstName && lastName)}
+            style={{
+              backgroundColor:
+                name && date && effectChecked && checked && vaccine && gender
+                  ? `${colors.orange}`
+                  : `${colors.disabled}`,
+              width: "100%",
+              padding: 15,
+              borderRadius: 10,
+              alignItems: "center",
+              marginBottom: 5,
+            }}
+            disabled={
+              !name ||
+              !date ||
+              !city ||
+              !gender ||
+              !checked ||
+              !effectChecked ||
+              !vaccine
+            }
           >
             <Text
-            // color={
-            //   username && password && email && firstName && lastName
-            //     ? colors.white
-            //     : colors.disabledText
-            // }
+              style={{
+                color:
+                  name &&
+                  city &&
+                  date &&
+                  effectChecked &&
+                  checked &&
+                  vaccine &&
+                  gender
+                    ? `${colors.white}`
+                    : `${colors.disabledText}`,
+              }}
             >
-              Registration
+              Submit Form
             </Text>
           </TouchableOpacity>
         </View>
-        <Text>Survey Screen</Text>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Thank You");
-          }}
-        >
-          <Text>Submit</Text>
-        </TouchableOpacity>
       </KeyboardAvoidingView>
     </ScrollView>
   );
@@ -188,6 +247,23 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "80%",
   },
+  dateIcon: {
+    position: "absolute",
+    left: 0,
+    top: 4,
+    marginLeft: 0,
+  },
+  dateInput: {
+    marginLeft: 36,
+    backgroundColor: "white",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 12,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: `${colors.borderColor}`,
+    marginTop: 10,
+  },
   input: {
     backgroundColor: "white",
     paddingHorizontal: 15,
@@ -207,121 +283,19 @@ const styles = StyleSheet.create({
     color: "#374151",
   },
   buttonContainer: {
-    width: "70%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  registrationContainer: {
     margin: 30,
     width: "60%",
     justifyContent: "center",
     alignItems: "center",
   },
-  button: {
-    backgroundColor: "#0782F9",
-    width: "100%",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginBottom: 5,
-  },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginBottom: 5,
-    borderColor: "#0782F9",
-    borderWidth: 2,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 25,
-  },
-  buttonOutlineText: {
-    color: "#0782F9",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  header: {
-    color: `${colors.orange}`,
-    fontWeight: "bold",
-    fontSize: 50,
-    padding: 20,
-    paddingBottom: 5,
-  },
-  enrollHeader: {
-    color: `${colors.headerRed}`,
-    fontWeight: "bold",
-    fontSize: 30,
-    padding: 20,
-  },
-  subheader: {
-    color: `${colors.gray}`,
-    fontWeight: "200",
-    paddingBottom: 40,
-    fontSize: 20,
-  },
-  title: {
-    width: 197,
-    height: 39.9,
-    fontSize: 36,
-    lineHeight: 36,
-    letterSpacing: 0,
-    textAlign: "center",
-    color: `${colors.title}`,
-    marginBottom: 20,
-  },
-  subtitle: {
-    width: 220,
-    height: 46.5,
-    fontSize: 14,
-    lineHeight: 21,
-    letterSpacing: 0,
-    textAlign: "center",
-    color: `${colors.subtitle}`,
-    marginBottom: 80,
-  },
-  subcomment: {
-    color: `${colors.headerRed}`,
-    paddingTop: 15,
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  termsconds: {
-    width: 368,
-    height: 26.6,
-    fontSize: 10,
-    letterSpacing: 0,
-    textAlign: "center",
-    color: `${colors.termscond}`,
-  },
-  forgotPass: {
-    display: "flex",
-    alignSelf: "flex-end",
-    margin: 15,
-    color: `${colors.orange}`,
-  },
-  square: {
-    width: 229,
-    height: 135,
-    opacity: 0.44,
-    backgroundColor: "#fec5aa",
-  },
-  layout: {
-    position: "absolute",
-    left: 1,
-    top: 0,
-    width: 414,
-    height: 896,
-  },
-  oval: {
-    width: 185,
-    height: 209,
-    opacity: 0.3,
-    backgroundColor: "#fec5aa",
-  },
   description: {
     padding: 20,
     color: `${colors.disabledText}`,
     fontStyle: "italic",
+  },
+  radioButton: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
 });
