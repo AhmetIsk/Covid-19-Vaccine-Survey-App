@@ -1,7 +1,7 @@
 export const colors = {
   disabledText: "#9ca3af",
   gray: "rgb(150, 150, 150)",
-  headerRed: "rgb(198, 21, 21)",
+  red: "#FF0000",
   white: "#FFFFFF",
   black: "#000",
   green: "#41A426",
