@@ -41,6 +41,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
           source={require("../../assets/surveyHeader.png")}
           style={{ width: "100%", height: 236 }}
         />
+
         <Text style={styles.description}>
           Vaccine Pollster is requesting input from employees regarding their
           COVID-19 vaccination status and how Vaccine Pollster may help to
@@ -50,11 +51,13 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
           information used in the decision-making process. At this time, Vaccine
           Pollster has no intention of mandating the COVID-19 vaccine.
         </Text>
+
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>
             Name and Surname: <Text style={{ color: colors.red }}>*</Text>
           </Text>
           <TextInput
+            testID="name-field"
             placeholder="Name and Surname"
             value={name}
             onChangeText={(text) => setName(text)}
@@ -64,6 +67,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
             Birth Date <Text style={{ color: colors.red }}>*</Text>
           </Text>
           <DatePicker
+            testID="birth-field"
             style={{ width: 200 }}
             date={date}
             mode="date"
@@ -83,6 +87,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
             City <Text style={{ color: colors.red }}>*</Text>
           </Text>
           <Picker
+            testID="city-field"
             selectedValue={city}
             onValueChange={(itemValue, itemIndex) =>
               itemValue !== "0" && setCity(itemValue)
@@ -97,6 +102,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
             Gender <Text style={{ color: colors.red }}>*</Text>
           </Text>
           <Picker
+            testID="gender-field"
             selectedValue={gender}
             onValueChange={(itemValue, itemIndex) =>
               itemValue !== "0" && setGender(itemValue)
@@ -120,6 +126,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
             <Text style={{ color: colors.red }}>*</Text>
           </Text>
           <Picker
+            testID="vaccine-field"
             selectedValue={vaccine}
             onValueChange={(itemValue, itemIndex) =>
               itemValue !== "0" && setVaccine(itemValue)
@@ -139,6 +146,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View style={{ flex: 1 }}>
               <RadioButton
+                testID="sideEffect-rbtn-y"
                 value="Yes"
                 status={effectChecked === "Yes" ? "checked" : "unchecked"}
                 onPress={() => setEffectChecked("Yes")}
@@ -146,6 +154,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
                 color={`${colors.black}`}
               />
               <RadioButton
+                testID="sideEffect-rbtn-n"
                 value="No"
                 status={effectChecked === "No" ? "checked" : "unchecked"}
                 onPress={() => setEffectChecked("No")}
@@ -185,8 +194,10 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
             </View>
           </View>
         </View>
+
         <View style={styles.buttonContainer}>
           <TouchableOpacity
+            testID="submit-btn"
             onPress={handleSubmit}
             style={{
               backgroundColor:
@@ -213,12 +224,12 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
               style={{
                 color:
                   name &&
-                  city &&
-                  date &&
-                  effectChecked &&
-                  checked &&
-                  vaccine &&
-                  gender
+                    city &&
+                    date &&
+                    effectChecked &&
+                    checked &&
+                    vaccine &&
+                    gender
                     ? `${colors.white}`
                     : `${colors.disabledText}`,
               }}
