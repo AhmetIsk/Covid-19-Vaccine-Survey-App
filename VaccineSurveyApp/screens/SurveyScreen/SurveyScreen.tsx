@@ -63,6 +63,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
           </Text>
           <TextInput
             testID="name-field"
+            accessibilityLabel="name-field"
             placeholder="Name and Surname"
             value={name}
             onChangeText={(text) => setName(text)}
@@ -93,6 +94,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
           </Text>
           <Picker
             testID="city-field"
+            accessibilityLabel="city-field"
             selectedValue={city}
             onValueChange={(itemValue, itemIndex) =>
               itemValue !== "0" && setCity(itemValue)
@@ -108,6 +110,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
           </Text>
           <Picker
             testID="gender-field"
+            accessibilityLabel="gender-field"
             selectedValue={gender}
             onValueChange={(itemValue, itemIndex) =>
               itemValue !== "0" && setGender(itemValue)
@@ -132,6 +135,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
           </Text>
           <Picker
             testID="vaccine-field"
+            accessibilityLabel="vaccine-field"
             selectedValue={vaccine}
             onValueChange={(itemValue, itemIndex) =>
               itemValue !== "0" && setVaccine(itemValue)
@@ -215,12 +219,12 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
               marginBottom: 5,
               display:
                 !name ||
-                !date ||
-                !city ||
-                !gender ||
-                !checked ||
-                !effectChecked ||
-                !vaccine
+                  !date ||
+                  !city ||
+                  !gender ||
+                  !checked ||
+                  !effectChecked ||
+                  !vaccine
                   ? "none"
                   : "flex",
             }}
