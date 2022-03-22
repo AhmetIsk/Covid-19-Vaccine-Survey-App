@@ -23,16 +23,21 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
   const [checked, setChecked] = useState("");
   const [vaccine, setVaccine] = useState("");
   const [gender, setGender] = useState("");
+  const regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
 
   const handleSubmit = () => {
-    setName("");
-    setDate("");
-    setCity("");
-    setEffectChecked("");
-    setChecked("");
-    setVaccine("");
-    setGender("");
-    navigation.navigate("Thank You");
+    if (!regName.test(name)) {
+      alert("Please enter a valid name and surname!");
+    } else {
+      setName("");
+      setDate("");
+      setCity("");
+      setEffectChecked("");
+      setChecked("");
+      setVaccine("");
+      setGender("");
+      navigation.navigate("Thank You");
+    }
   };
   return (
     <ScrollView style={styles.scrollContainer}>
@@ -174,6 +179,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View style={{ flex: 1 }}>
               <RadioButton
+                testID="radio-btn-yes"
                 value="first"
                 status={checked === "first" ? "checked" : "unchecked"}
                 onPress={() => setChecked("first")}
@@ -181,6 +187,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
                 color={`${colors.black}`}
               />
               <RadioButton
+                testID="radio-btn-no"
                 value="No"
                 status={checked === "No" ? "checked" : "unchecked"}
                 onPress={() => setChecked("No")}
@@ -200,15 +207,22 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
             testID="submit-btn"
             onPress={handleSubmit}
             style={{
-              backgroundColor:
-                name && date && effectChecked && checked && vaccine && gender
-                  ? `${colors.orange}`
-                  : `${colors.disabled}`,
+              backgroundColor: `${colors.orange}`,
               width: "100%",
               padding: 15,
               borderRadius: 10,
               alignItems: "center",
               marginBottom: 5,
+              display:
+                !name ||
+                !date ||
+                !city ||
+                !gender ||
+                !checked ||
+                !effectChecked ||
+                !vaccine
+                  ? "none"
+                  : "flex",
             }}
             disabled={
               !name ||
@@ -222,16 +236,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
           >
             <Text
               style={{
-                color:
-                  name &&
-                    city &&
-                    date &&
-                    effectChecked &&
-                    checked &&
-                    vaccine &&
-                    gender
-                    ? `${colors.white}`
-                    : `${colors.disabledText}`,
+                color: `${colors.white}`,
               }}
             >
               Submit Form

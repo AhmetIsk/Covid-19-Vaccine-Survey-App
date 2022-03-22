@@ -21,6 +21,7 @@ export default function WelcomeScreen({ navigation }: { navigation: any }) {
           navigation.navigate("Survey Page");
         }}
         style={styles.startButton}
+        testID="take-survey"
       >
         <Text style={styles.buttonLabel}>Take the Survey Now!</Text>
       </TouchableOpacity>

@@ -10,6 +10,7 @@ const ThankYouScreen = ({ navigation }: { navigation: any }) => {
         style={{ width: 250, height: 250 }}
       />
       <TouchableOpacity
+        testID="back-to-home-btn"
         onPress={() => navigation.navigate("Welcome")}
         style={styles.backButton}
       >
