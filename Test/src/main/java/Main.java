@@ -5,8 +5,8 @@ public class Main{
         String deviceID= "emulator-5554";
         String platformName = "Android";
         String platformVersion = "11";
-        String appPackage = "com.mertuila.VaccineSurveyApp";
-        String appActivity = "com.mertuila.VaccineSurveyApp.MainActivity";
+        String appPackage = "com.mert.VaccineSurveyApp";
+        String appActivity = "host.exp.exponent.MainActivity";
 
         Appium.getInstance().initAppium(deviceName,deviceID,platformName,platformVersion,appPackage,appActivity);
 
