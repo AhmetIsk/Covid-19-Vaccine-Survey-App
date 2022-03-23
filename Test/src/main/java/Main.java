@@ -37,5 +37,8 @@ public class Main{
         TestSuite5 testSuite5 = new TestSuite5();
         testSuite5.testSuite5();
 
+        Appium.getDriver().terminateApp(appPackage);
+        Appium.getDriver().activateApp(appPackage);
+
     }
 }
