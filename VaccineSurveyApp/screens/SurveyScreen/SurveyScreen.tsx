@@ -26,18 +26,14 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
   const regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
 
   const handleSubmit = () => {
-    if (!regName.test(name)) {
-      alert("Please enter a valid name and surname!");
-    } else {
-      setName("");
-      setDate("");
-      setCity("");
-      setEffectChecked("");
-      setChecked("");
-      setVaccine("");
-      setGender("");
-      navigation.navigate("Thank You");
-    }
+    setName("");
+    setDate("");
+    setCity("");
+    setEffectChecked("");
+    setChecked("");
+    setVaccine("");
+    setGender("");
+    navigation.navigate("Thank You");
   };
   return (
     <ScrollView style={styles.scrollContainer}>
@@ -67,8 +63,19 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
             placeholder="Name and Surname"
             value={name}
             onChangeText={(text) => setName(text)}
-            style={styles.input}
+            style={
+              !regName.test(name) && name ? styles.warningInput : styles.input
+            }
           />
+          <Text
+            style={
+              !regName.test(name) && name
+                ? { color: `${colors.red}` }
+                : { display: "none" }
+            }
+          >
+            Please enter a valid name and surname!
+          </Text>
           <Text style={styles.inputLabel}>
             Birth Date <Text style={{ color: colors.red }}>*</Text>
           </Text>
@@ -219,17 +226,19 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
               marginBottom: 5,
               display:
                 !name ||
-                  !date ||
-                  !city ||
-                  !gender ||
-                  !checked ||
-                  !effectChecked ||
-                  !vaccine
+                !regName.test(name) ||
+                !date ||
+                !city ||
+                !gender ||
+                !checked ||
+                !effectChecked ||
+                !vaccine
                   ? "none"
                   : "flex",
             }}
             disabled={
               !name ||
+              !regName.test(name) ||
               !date ||
               !city ||
               !gender ||
@@ -293,6 +302,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: `${colors.borderColor}`,
     marginTop: 10,
+  },
+  warningInput: {
+    backgroundColor: "white",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 12,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: `${colors.borderColor}`,
+    marginTop: 10,
+    borderBottomColor: `${colors.red}`,
+    bottom: 2,
   },
   inputLabel: {
     paddingTop: 10,
