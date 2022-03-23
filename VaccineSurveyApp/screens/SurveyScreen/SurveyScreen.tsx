@@ -23,7 +23,8 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
   const [checked, setChecked] = useState("");
   const [vaccine, setVaccine] = useState("");
   const [gender, setGender] = useState("");
-  const regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+  const regName1 = /^[a-zA-Z]{2,15}\s([a-zA-Z]{2,15}\s)?[a-zA-Z]{2,15}$/;
+  const regName2 = /^[a-zA-Z]{2,15}\s([a-zA-Z]{2,15}\s)?[a-zA-Z]{2,15}$/;
 
   const handleSubmit = () => {
     setName("");
@@ -64,12 +65,14 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
             value={name}
             onChangeText={(text) => setName(text)}
             style={
-              !regName.test(name) && name ? styles.warningInput : styles.input
+              !(regName1.test(name) || regName2.test(name)) && name ? styles.warningInput : styles.input
             }
           />
           <Text
+          testID="name-warning"
+          accessibilityLabel="name-warning"
             style={
-              !regName.test(name) && name
+              !(regName1.test(name) || regName2.test(name)) && name
                 ? { color: `${colors.red}` }
                 : { display: "none" }
             }
@@ -216,6 +219,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             testID="submit-btn"
+            accessibilityLabel="submit-btn"
             onPress={handleSubmit}
             style={{
               backgroundColor: `${colors.orange}`,
@@ -226,7 +230,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
               marginBottom: 5,
               display:
                 !name ||
-                !regName.test(name) ||
+                !(regName1.test(name) || regName2.test(name)) ||
                 !date ||
                 !city ||
                 !gender ||
@@ -238,7 +242,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
             }}
             disabled={
               !name ||
-              !regName.test(name) ||
+              !(regName1.test(name) || regName2.test(name)) ||
               !date ||
               !city ||
               !gender ||

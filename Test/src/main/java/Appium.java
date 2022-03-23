@@ -11,13 +11,15 @@ public class Appium {
 
     private Appium() {}
 
-    public void initAppium(String deviceName, String deviceID, String platformName, String platformVersion, String appPackage){
+    public void initAppium(String deviceName, String deviceID, String platformName, String platformVersion, String appPackage, String appActivity){
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("deviceName",deviceName);
         cap.setCapability("udid",deviceID);
         cap.setCapability("platformName",platformName);
         cap.setCapability("platformVersion",platformVersion);
         cap.setCapability("APP",appPackage);
+        cap.setCapability("appActivity",appActivity);
+        
 
         try{
             URL url = new URL("http://127.0.0.1:4723/wd/hub");

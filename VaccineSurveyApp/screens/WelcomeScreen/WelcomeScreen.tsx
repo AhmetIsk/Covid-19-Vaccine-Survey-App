@@ -22,6 +22,7 @@ export default function WelcomeScreen({ navigation }: { navigation: any }) {
         }}
         style={styles.startButton}
         testID="take-survey"
+        accessibilityLabel="take-survey"
       >
         <Text style={styles.buttonLabel}>Take the Survey Now!</Text>
       </TouchableOpacity>

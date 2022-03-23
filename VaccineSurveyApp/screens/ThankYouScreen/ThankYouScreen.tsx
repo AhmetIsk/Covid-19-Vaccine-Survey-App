@@ -14,7 +14,10 @@ const ThankYouScreen = ({ navigation }: { navigation: any }) => {
         onPress={() => navigation.navigate("Welcome")}
         style={styles.backButton}
       >
-        <Text style={styles.buttonLabel}>Back to Home Page</Text>
+        <Text 
+          testID="home-btn"
+          accessibilityLabel="home-btn"
+          style={styles.buttonLabel}>Back to Home Page</Text>
       </TouchableOpacity>
     </View>
   );
