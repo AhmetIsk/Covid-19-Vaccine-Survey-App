@@ -18,6 +18,5 @@ How to run the tests:
 6. Wheter cases are failed or not are printed on the console.
 
 
-16228727308
 
 Enjoy!
