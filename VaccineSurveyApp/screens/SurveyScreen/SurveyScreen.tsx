@@ -166,6 +166,7 @@ const SurveyScreen = ({ navigation }: { navigation: any }) => {
             <View style={{ flex: 1 }}>
               <RadioButton
                 testID="sideEffect-rbtn-y"
+                accessibilityLabel="sideEffect-rbtn-y"
                 value="Yes"
                 status={effectChecked === "Yes" ? "checked" : "unchecked"}
                 onPress={() => setEffectChecked("Yes")}
