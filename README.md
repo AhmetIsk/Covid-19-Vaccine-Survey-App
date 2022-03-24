@@ -3,8 +3,8 @@ Covid-19 Vaccine survey page created using React Native and automated with Appiu
 
 Project Team:
 Ahmet Işık
-Boran Fatih Kazancı
-Mert Yıldırım
+Bora Fatih Kazancı
+Yusuf Mert Yıldırım
 Furkan Ahi
 
 How to run the tests:
@@ -16,7 +16,6 @@ How to run the tests:
    change the related fields with your emulator settings on Main.java, located at the top of the file.
 5. Run the Main.java class, if set up correctly, the app should be automated with appium server.
 6. Wheter cases are failed or not are printed on the console.
-
 
 
 Enjoy!
